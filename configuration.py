@@ -14,7 +14,7 @@ def get_available_port():
         return s.getsockname()[1]
 
 
-HOST = "https://127.0.0.1:"
+HOST = "127.0.0.1"
 PORT = get_available_port()
 
 

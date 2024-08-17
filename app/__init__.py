@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 
-from app.extensions import db
+from app.extensions import db, socketio
 from configuration import DATABASE_PATH, Configuration
 
 
@@ -12,6 +12,7 @@ def create_app(config_class=Configuration):
 
     # Initialize extensions
     db.init_app(app)
+    socketio.init_app(app)
 
     # Register blueprints
     from app.chat import bp as chat_bp
