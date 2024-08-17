@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Minas Energia - Chat
+{% endblock %}
+
+{% block content %}
+<div 
+    id="chat" 
+    class="flex flex-col w-full h-full mb-28 gap-x-2.5 pt-2 overflow-y-auto overflow-x-hidden max-h-[350px] 2xl:max-h-[560px] snap-y"
+></div>
+<div class="flex rounded-full bg-searchBackground absolute bottom-0 mb-8 w-5/6">
+    <input 
+        id="message"
+        type="text" 
+        placeholder="Escreva sua mensagem..." 
+        class="bg-transparent outline-none text-white flex-1 pl-8 placeholder:text-searchPlaceholder"
+    >
+    <button id="sendMessage" type="button" onClick="startNewChat()">
+        <img 
+            src="{{ url_for('static', filename='img/send.svg') }}"
+            class="m-2 max-w-10"
+            alt="Send"
+        />
+    </button>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/chat/chat.js') }}"></script>
+{% endblock %}
