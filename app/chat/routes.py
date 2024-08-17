@@ -1,8 +1,8 @@
 from flask import render_template
 
 from app.chat import bp
-from app.chat.models import Chat, Message
-from app.chat.view import chat_handler
+from app.chat.models import Chat
+from app.chat.view import States, chat_handler
 from app.extensions import db, socketio
 
 
@@ -27,6 +27,7 @@ def read_sent_message(data):
         chat = Chat()
         db.session.add(chat)
         db.session.commit()
+        chat_handler.current_state = States.FIRST_MESSAGE
     else:
         chat = Chat.query.filter_by(id=chat_id).first()
 
