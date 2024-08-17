@@ -2,8 +2,9 @@ import os
 
 from flask import Flask
 
-from configuration import Configuration, DATABASE_PATH
 from app.extensions import db
+from configuration import DATABASE_PATH, Configuration
+
 
 def create_app(config_class=Configuration):
     app = Flask(__name__)
@@ -14,6 +15,7 @@ def create_app(config_class=Configuration):
 
     # Register blueprints
     from app.chat import bp as chat_bp
+
     app.register_blueprint(chat_bp)
 
     # Create database models if not exists
