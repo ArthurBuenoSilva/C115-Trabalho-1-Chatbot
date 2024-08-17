@@ -33,7 +33,7 @@ socket.on("show_messages", function(data) {
 
             messageElement.innerHTML = `
                 <div class="flex items-start gap-2.5">
-                    <div class="flex flex-col max-w-[320px] leading-1.5 px-4 py-1 border-gray-200 bg-chatMessageBackground rounded-e-3xl rounded-bl-3xl">
+                    <div class="flex flex-col max-w-[320px] leading-1.5 px-4 py-1 border-gray-200 bg-modalMessageBackground rounded-e-3xl rounded-bl-3xl">
                         <p class="text-sm font-normal py-1.5 text-chatMessageText break-words">
                             ${messageText}
                         </p>

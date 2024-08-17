@@ -9,7 +9,8 @@ tailwind.config = {
           chatMyMessageText: '#393D60',
           chatMyMessageBackground: '#A7ACDF',
           searchBackground: '#1F233E',
-          searchPlaceholder: '#767790'
+          searchPlaceholder: '#767790',
+          modalMessageBackground: '#242848'
         }
       }
     }
