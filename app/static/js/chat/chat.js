@@ -2,6 +2,19 @@ const socket = io();
 const chat = document.getElementById("chat");
 let chatId = null;
 
+document.addEventListener("DOMContentLoaded", () => {
+    const messageInput = document.getElementById("message");
+    const button = document.getElementById("sendMessage");
+
+    messageInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            button.click();
+        }
+    });
+})
+
+
 function sendMessage() {
     const message = document.getElementById("message");
 

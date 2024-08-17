@@ -7,13 +7,13 @@ from app.extensions import db
 
 
 def model_to_dict(model_instace):
-    return {column.name: getattr(model_instace, column.name) for column in model_instace.__tabel__.columns}
+    return {column.name: getattr(model_instace, column.name) for column in model_instace.__table__.columns}
 
 
 class Chat(db.Model):
     id = db.Column(Integer, primary_key=True)
     messages = db.relationship("Message", backref="chat", lazy=True)
-    created_at = db.Column(DateTime(timezone=True), default=datetime.now())
+    created_at = db.Column(String(150), default=datetime.now().strftime("%d/%m/%Y, %H:%M:%S"))
 
     def __repr__(self):
         return f'<Chat "{self.id}" created at {self.created_at}>'
@@ -26,7 +26,8 @@ class Chat(db.Model):
 
         return messages
 
-    def get_all_chats(self) -> list[dict[str, Any]]:
+    @staticmethod
+    def get_all_chats() -> list[dict[str, Any]]:
         chats = list()
 
         for chat in Chat.query.all():
