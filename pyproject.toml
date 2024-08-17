@@ -1,0 +1,21 @@
+[tool.black]
+line-length = 120
+target-version = ["py312"]
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | venv
+    | .venv
+    | _build
+    | build
+    | buck-out
+    | \.flake8
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line-legth = 120
