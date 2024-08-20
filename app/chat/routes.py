@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import redirect, render_template
 
 from app.chat import bp
 from app.chat.models import Chat
@@ -16,6 +16,12 @@ def history():
     context = {"chats": Chat.get_all_chats()}
 
     return render_template("history.html", context=context)
+
+
+@bp.route("/clear")
+def clear():
+    Chat.clear_all()
+    return redirect("history")
 
 
 @socketio.on("send_message")

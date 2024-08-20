@@ -12,7 +12,7 @@ def model_to_dict(model_instace):
 
 class Chat(db.Model):
     id = db.Column(Integer, primary_key=True)
-    messages = db.relationship("Message", backref="chat", lazy=True)
+    messages = db.relationship("Message", backref="chat", lazy=True, cascade="all, delete")
     created_at = db.Column(String(150), default=datetime.now().strftime("%d/%m/%Y, %H:%M:%S"))
 
     def __repr__(self):
@@ -35,6 +35,12 @@ class Chat(db.Model):
 
         return chats
 
+    @staticmethod
+    def clear_all():
+        for chat in Chat.query.all():
+            db.session.delete(chat)
+        db.session.commit()
+
 
 class Message(db.Model):
     id = db.Column(Integer, primary_key=True)
@@ -42,7 +48,7 @@ class Message(db.Model):
     is_it_mine = db.Column(Boolean, nullable=False)
 
     # Chat foreing key
-    chat_id = db.Column(Integer, ForeignKey("chat.id"), nullable=False)
+    chat_id = db.Column(Integer, ForeignKey("chat.id", ondelete="CASCADE"), nullable=False)
 
     def __repr__(self):
         return f'<Message "{self.message}">'
