@@ -1,9 +1,11 @@
+# app/chat/view.py
 import random
 from enum import Enum
 
 from app.chat.models import Chat, Message
-from app.extensions import db, socketio
-
+from app.chat.communication import Communication
+from app.chat.socketio_communication import SocketIOCommunication
+from app.extensions import db
 
 class States(Enum):
     FIRST_MESSAGE = -1
@@ -14,20 +16,20 @@ class States(Enum):
     FINISH = 4
     UNKNOWN = 5
 
-
 class ChatHandler:
-    def __init__(self):
-        self.current_state: States = States.FIRST_MESSAGE
-        self.current_chat: Chat | None = None
+    def __init__(self, communication: Communication):
+        self.communication = communication
+        self.current_state = States.FIRST_MESSAGE
+        self.current_chat = None
 
-    def handle_received_message(self, chat, message: str):
+    def handle_received_message(self, chat: Chat, message: str):
         self.current_chat = chat
 
         if self.current_state == States.FIRST_MESSAGE:
-            self.send_message("Olá, meu nome é Samuel!")
-            self.send_message("Como posso te ajuda?")
-            self.send_message(
-                "Digite:\n\n1 - Consumo de energia\n2 - Fatura\n3 - Falar com um atendente\n4 - Finalizar atendimento"
+            self.communication.send_message("Olá, meu nome é Samuel!", chat.id)
+            self.communication.send_message("Como posso te ajuda?", chat.id)
+            self.communication.send_message(
+                "Digite:\n\n1 - Consumo de energia\n2 - Fatura\n3 - Falar com um atendente\n4 - Finalizar atendimento", chat.id
             )
             self.current_state = States.OPTIONS
             return
@@ -48,42 +50,38 @@ class ChatHandler:
         if self.current_state == States.CONSUMPTION:
             consumption = self.get_random_consumption()
             message = f"O seu consumo de energia do último mês foi de R$ {consumption}"
-            self.send_message(message)
+            self.communication.send_message(message, chat.id)
             self.current_state = States.FINISH
 
         if self.current_state == States.BILL:
             consumption = self.get_random_consumption()
             message = f"A fatura no valor de R$ {consumption} foi enviado para o seu email!"
-            self.send_message(message)
+            self.communication.send_message(message, chat.id)
             self.current_state = States.FINISH
 
         if self.current_state == States.SUPPORT:
             message = "Um atendente irá falar com você em breve. Por favor, aguarde."
-            self.send_message(message)
+            self.communication.send_message(message, chat.id)
             self.current_state = States.FINISH
 
         if self.current_state == States.UNKNOWN:
             message = f"Não entendi a mensagem '{message}'"
-            self.send_message(message)
+            self.communication.send_message(message, chat.id)
             self.current_state = States.FINISH
 
         if self.current_state == States.FINISH:
             message = "Seu atendimento foi finalizado."
-            self.send_message(message)
+            self.communication.send_message(message, chat.id)
 
             message = "Espero ter ajudado :)"
-            self.send_message(message)
+            self.communication.send_message(message, chat.id)
 
             self.current_state = States.FIRST_MESSAGE
             self.finish_chat()
 
-    def send_message(self, message: str):
-        socketio.emit("receive_message", {"message": message, "chat_id": self.current_chat.id})
-        self.save_mensage(message=message, chat=self.current_chat, is_it_mine=False)
-
     def finish_chat(self):
         self.current_chat = None
-        socketio.emit("finished")
+        self.communication.finish_chat()
 
     def get_random_consumption(self) -> float:
         return round(random.uniform(100.00, 300.00), 2)
@@ -94,5 +92,5 @@ class ChatHandler:
         db.session.add(message_obj)
         db.session.commit()
 
-
-chat_handler = ChatHandler()
+# Initialize chat_handler with SocketIOCommunication
+chat_handler = ChatHandler(SocketIOCommunication())
