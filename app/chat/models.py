@@ -1,13 +1,13 @@
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String
+from sqlalchemy import Boolean, ForeignKey, Integer, String
 
 from app.extensions import db
 
 
-def model_to_dict(model_instace):
-    return {column.name: getattr(model_instace, column.name) for column in model_instace.__table__.columns}
+def model_to_dict(model_instance):
+    return {column.name: getattr(model_instance, column.name) for column in model_instance.__table__.columns}
 
 
 class Chat(db.Model):
@@ -47,7 +47,7 @@ class Message(db.Model):
     message = db.Column(String(150), nullable=False)
     is_it_mine = db.Column(Boolean, nullable=False)
 
-    # Chat foreing key
+    # Chat foreign key
     chat_id = db.Column(Integer, ForeignKey("chat.id", ondelete="CASCADE"), nullable=False)
 
     def __repr__(self):

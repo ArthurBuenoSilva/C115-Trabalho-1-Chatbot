@@ -37,7 +37,7 @@ def read_sent_message(data):
     else:
         chat = Chat.query.filter_by(id=chat_id).first()
 
-    chat_handler.save_mensage(message=message, chat=chat, is_it_mine=True)
+    chat_handler.save_message(message=message, chat=chat, is_it_mine=True)
     chat_handler.handle_received_message(chat, message)
 
 
