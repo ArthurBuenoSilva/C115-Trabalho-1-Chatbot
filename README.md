@@ -71,7 +71,7 @@ WARNING: This is a development server. Do not use it in a production deployment.
 Press CTRL+C to quit
 ```
 
-Agora que o servidor já está em execução, abra o navegador e acesse a URL exibida no terminal. 
+Agora que o servidor já está em execução, abra o navegador e acesse a URL exibida no terminal.
 
 No meu caso, a URL seria http://127.0.0.1:49675.
 

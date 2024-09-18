@@ -16,24 +16,24 @@
 </head>
 <body class="bg-[url({{ url_for('static', filename='img/background.png') }})] bg-cover h-screen w-screen">
     <main class="flex flex-col items-center h-full">
-        <img 
+        <img
             src="{{ url_for('static', filename='img/logo.svg') }}"
             class="max-w-40 xl:max-w-52 mt-4"
             alt="Logo Minas Energia"
         >
-        <content 
+        <content
             class="flex flex-col items-center bg-chatBackground rounded-3xl grow my-6 xl:my-10 w-full max-w-screen-md"
             style="filter: drop-shadow(4px 4px 4px #000000);"
         >
-            <header 
+            <header
                 class="flex justify-between bg-chatHeader rounded-t-3xl w-full z-10"
                 style="box-shadow: 0 6px 6px -2px rgba(0, 0, 0, 0.5);"
             >
                 {% block inner_title %}
-                {% endblock %}               
+                {% endblock %}
             </header>
             <content class="flex flex-col items-center w-5/6 h-full">
-                {% block content %}{% endblock %}             
+                {% block content %}{% endblock %}
             </content>
         </content>
     </main>

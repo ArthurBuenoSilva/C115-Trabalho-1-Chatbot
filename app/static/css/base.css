@@ -1,7 +1,7 @@
 #chat, #history {
     -ms-overflow-style: none;
     scrollbar-width: none;
-    overflow-y: scroll; 
+    overflow-y: scroll;
 }
 
 #chat::-webkit-scrollbar, #history::-webkit-scrollbar {
