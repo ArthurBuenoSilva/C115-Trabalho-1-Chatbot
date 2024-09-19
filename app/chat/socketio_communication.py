@@ -1,6 +1,6 @@
-# app/chat/socketio_communication.py
-from app.extensions import socketio
 from app.chat.communication import Communication
+from app.extensions import socketio
+
 
 class SocketIOCommunication(Communication):
     def send_message(self, message: str, chat_id: int):
