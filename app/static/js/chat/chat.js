@@ -31,11 +31,11 @@ function sendMessage() {
             </div>
         `;
         chat.appendChild(messageElement);
-    
+
         socket.emit("send_message", {chatId: chatId, message: message.value});
-    
+
         message.value = "";
-    };
+    }
 }
 
 function startNewChat() {

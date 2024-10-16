@@ -6,36 +6,36 @@ Minas Energia - Chat
 
 {% block inner_title %}
     <div class="flex items-center">
-        <img 
-            src="{{ url_for('static', filename='img/bot.png') }}" 
+        <img
+            src="{{ url_for('static', filename='img/bot.png') }}"
             class="m-2.5 max-w-10 xl:max-w-12"
-            alt="Bot" 
+            alt="Bot"
         />
         <h1 class="text-xl xl:text-2xl font-bold text-white">Samuel</h1>
     </div>
     <button type="button" onclick="window.location.href=`{{ url_for('chat.history') }}`">
-        <img 
-            src="{{ url_for('static', filename='img/history.svg') }}" 
+        <img
+            src="{{ url_for('static', filename='img/history.svg') }}"
             class="mr-2.5 max-w-10 xl:max-w-12"
-            alt="History" 
+            alt="History"
         />
-    </button> 
+    </button>
 {% endblock %}
 
 {% block content %}
-<div 
-    id="chat" 
+<div
+    id="chat"
     class="flex flex-col w-full h-full mb-28 gap-x-2.5 pt-2 overflow-y-auto overflow-x-hidden max-h-[350px] 2xl:max-h-[560px] snap-y"
 ></div>
 <div class="flex rounded-full bg-searchBackground absolute bottom-0 mb-8 w-5/6">
-    <input 
+    <input
         id="message"
-        type="text" 
-        placeholder="Escreva sua mensagem..." 
+        type="text"
+        placeholder="Escreva sua mensagem..."
         class="bg-transparent outline-none border-none text-white flex-1 pl-8 placeholder:text-searchPlaceholder focus:ring-0"
     >
     <button id="sendMessage" type="button" onClick="startNewChat()">
-        <img 
+        <img
             src="{{ url_for('static', filename='img/send.svg') }}"
             class="m-2 max-w-10"
             alt="Send"
