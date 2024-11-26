@@ -41,6 +41,12 @@ class Chat(db.Model):
             db.session.delete(chat)
         db.session.commit()
 
+    @staticmethod
+    def save_message(message: str, chat_id: str | None, is_it_mine: bool = True):
+        message_obj = Message(message=message, chat_id=chat_id, is_it_mine=is_it_mine)
+        db.session.add(message_obj)
+        db.session.commit()
+
 
 class Message(db.Model):
     id = db.Column(Integer, primary_key=True)

@@ -89,12 +89,6 @@ class ChatHandler:
     def get_random_consumption() -> float:
         return round(random.uniform(100.00, 300.00), 2)
 
-    @staticmethod
-    def save_message(message: str, chat: Chat | None, is_it_mine: bool = True):
-        message_obj = Message(message=message, chat_id=chat.id, is_it_mine=is_it_mine)
-        db.session.add(message_obj)
-        db.session.commit()
-
 
 # Initialize chat_handler with SocketIOCommunication
 chat_handler = ChatHandler(SocketIOCommunication())
